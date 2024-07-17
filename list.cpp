@@ -1,4 +1,5 @@
 #include "list.h"
+#include "list_util.h"
 #include <initializer_list>
 #include <algorithm>
 
@@ -20,9 +21,13 @@ namespace rb {
 
     template<typename T>
     list<T>::list(const std::initializer_list<T>& init) {
-        data = new T[init.size()];
+        data = nullptr;
         _size = init.size();
-        
+        _capacity = next_power_of_two(init.size());
+        if (_size > 0) {
+            data = new T[_capacity];
+            std::copy(init.begin(), init.end(), data);
+        }
     }
 
     template<typename T>
