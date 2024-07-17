@@ -1,7 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <stdexcept>
+#include <initializer_list>
 
 namespace rb {
     template<typename T> // Generates code in compile-time depending on user specified type
@@ -15,6 +15,7 @@ namespace rb {
         public:
             list();
             explicit list(std::size_t initial_capacity);
+            list(const std::initializer_list<T>& init);
             ~list();
 
             void push_back(const T& value);
@@ -26,6 +27,9 @@ namespace rb {
             std::size_t capacity() const;
             bool empty() const;
     };
+
+    template<typename T> 
+    list<T> list_concat(const list<T>& lhs, const list<T>& rhs);
 }
 
-#endif // LIST_H
+#endif

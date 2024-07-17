@@ -1,8 +1,8 @@
 #include <iostream>
 #include "list.h"
+#include "list_test.h"
 
 int main() {
-    int i = 5;
-    std::cout << "Hello, World!" << std::endl;
+    run_list_test();
     return 0;
 }
