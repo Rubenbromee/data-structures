@@ -7,7 +7,7 @@ namespace rb {
     template<typename T> // Generates code in compile-time depending on user specified type
     struct list {
         private:
-            T* data;
+            T* _data;
             std::size_t _size;
             std::size_t _capacity;
 
@@ -26,10 +26,13 @@ namespace rb {
             std::size_t size() const;
             std::size_t capacity() const;
             bool empty() const;
-    };
+            
+            template<typename U>
+            friend list<U> list_concat(const list<U>& lhs, const list<U>& rhs);
 
-    template<typename T> 
-    list<T> list_concat(const list<T>& lhs, const list<T>& rhs);
+            template<typename U>
+            friend list<U> operator+(const list<U>& lhs, const list<U>& rhs);
+    };
 }
 
 #endif

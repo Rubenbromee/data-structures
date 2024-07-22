@@ -110,6 +110,40 @@ void test_out_of_range() {
     std::cout << "test_out_of_range passed!" << std::endl;
 }
 
+void test_list_concat() {
+    rb::list<int> lhs = {1, 2, 3};
+    rb::list<int> rhs = {4, 5, 6};
+
+    rb::list<int> result = list_concat(lhs, rhs);
+
+    assert(result.size() == 6);
+    assert(result[0] == 1);
+    assert(result[1] == 2);
+    assert(result[2] == 3);
+    assert(result[3] == 4);
+    assert(result[4] == 5);
+    assert(result[5] == 6);
+
+    std::cout << "test_list_concat passed!" << std::endl;
+}
+
+void test_operator_plus() {
+    rb::list<int> lhs = {1, 2, 3};
+    rb::list<int> rhs = {4, 5, 6};
+
+    rb::list<int> result = lhs + rhs;
+
+    assert(result.size() == 6);
+    assert(result[0] == 1);
+    assert(result[1] == 2);
+    assert(result[2] == 3);
+    assert(result[3] == 4);
+    assert(result[4] == 5);
+    assert(result[5] == 6);
+
+    std::cout << "test_operator_plus passed!" << std::endl;
+}
+
 void run_list_test() {
     test_constructors();
     test_push_back();
@@ -117,6 +151,8 @@ void run_list_test() {
     test_resize();
     test_out_of_range();
     test_next_power_of_two();
+    test_list_concat();
+    test_operator_plus();
     std::cout << "All list tests passed!" << std::endl;
 }
 
