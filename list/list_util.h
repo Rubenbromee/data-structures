@@ -18,8 +18,9 @@ std::size_t next_power_of_two(std::size_t n) {
     /* 
         The bits of the current value of n are right shifted 2^i times and that value is temporarily stored in (n >> 2^i).
         A bitwise OR operation is then performed between the current value of n and (n >> 2^i).
-        This will continue until all bits right of the highest set bit in n are set.
+        This will continue until all bits right of the highest set bit in the initial value of n are set.
         This will increase n to the next power of two for n, minus 1.
+        The function then returns n + 1, producing the next power of two for n.
     */
     /* 
         Example, let's say that, after the above decrement, n is 5:

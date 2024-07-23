@@ -1,3 +1,6 @@
+#ifndef NODE_H
+#define NODE_H
+
 // A simple node class, used for other data structures
 namespace rb {
     template <typename T>
@@ -10,3 +13,5 @@ namespace rb {
         }
     };
 }
+
+#endif

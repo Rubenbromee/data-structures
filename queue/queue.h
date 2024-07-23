@@ -1,7 +1,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "node.h"
+#include "../node/node.h"
 
 namespace rb {
     template<typename T>
@@ -15,7 +15,7 @@ namespace rb {
 
             void enqueue(T value);
             void dequeue();
-            void pop();
+            T pop();
             bool empty();
             T front();
     };
