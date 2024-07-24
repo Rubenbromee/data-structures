@@ -13,6 +13,10 @@ namespace rb {
             next = nullptr;
             prev = nullptr;
         }
+        ~dl_node() {
+            next = nullptr;
+            prev = nullptr;
+        }
     };
 }
 

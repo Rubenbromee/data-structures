@@ -1,6 +1,5 @@
 #include "queue.h"
 #include "../node/node.h"
-#include "../util/custom_exception.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -43,7 +42,7 @@ namespace rb {
     template<typename T>
     void queue<T>::dequeue() {
         if (_front == nullptr) {
-            throw custom_exception("Attempted dequeue of empty queue!");
+            throw std::runtime_error("Attempted dequeue of empty queue!");
             return;
         }
 
@@ -60,7 +59,7 @@ namespace rb {
     template<typename T>
     T queue<T>::pop() {
         if (_front == nullptr) {
-            throw custom_exception("Attempted pop of empty queue!");
+            throw std::runtime_error("Attempted pop of empty queue!");
             return T();
         }
         node<T>* temp = _front; // Temporary pointer to be able to delete front after it has been detached from the queue
@@ -78,7 +77,7 @@ namespace rb {
     template<typename T>
     T queue<T>::front() {
         if (_front == nullptr) {
-            throw custom_exception("Cannot get front of empty queue!");
+            throw std::runtime_error("Cannot get front of empty queue!");
             return T();
         }
         return _front->data;

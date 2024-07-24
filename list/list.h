@@ -4,6 +4,7 @@
 #include <initializer_list>
 
 namespace rb {
+    // A dynamic array data structure, like vector in C++ and list in Python
     template<typename T> // Generates code in compile-time depending on user specified type
     struct list {
         private:

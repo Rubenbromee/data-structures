@@ -1,9 +1,9 @@
 #include "queue.h"
 #include "../node/node.h"
-#include "../util/custom_exception.h"
 #include "queue.cpp"
 #include <iostream>
 #include <cassert>
+#include <stdexcept>
 
 void test_enqueue_dequeue() {
     rb::queue<int> q;
@@ -58,7 +58,7 @@ void test_front_exception() {
     rb::queue<int> q;
     try {
         q.front();
-    } catch (const custom_exception& e) {
+    } catch (const std::runtime_error& e) {
         assert(std::string(e.what()) == "Cannot get front of empty queue!" && "Exception message should match");
         std::cout << "test_front_exception passed." << std::endl;
         return;
@@ -70,7 +70,7 @@ void test_dequeue_exception() {
     rb::queue<int> q;
     try {
         q.dequeue();
-    } catch (const custom_exception& e) {
+    } catch (const std::runtime_error& e) {
         assert(std::string(e.what()) == "Attempted dequeue of empty queue!" && "Exception message should match");
         std::cout << "test_dequeue_exception passed." << std::endl;
         return;
@@ -82,7 +82,7 @@ void test_pop_exception() {
     rb::queue<int> q;
     try {
         q.pop();
-    } catch (const custom_exception& e) {
+    } catch (const std::runtime_error& e) {
         assert(std::string(e.what()) == "Attempted pop of empty queue!" && "Exception message should match");
         std::cout << "test_pop_exception passed." << std::endl;
         return;

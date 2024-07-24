@@ -16,9 +16,12 @@ namespace rb {
 
             void append(T value);
             void prepend(T value);
+            void insert(T value, T new_value);
             void delete_node(const T& value);
             void print() const;
             void print_r() const;
+            T head() const;
+            T tail() const;
     };
 }
 
