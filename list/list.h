@@ -28,6 +28,10 @@ namespace rb {
             std::size_t capacity() const;
             bool empty() const;
             
+            /* A separate template variable U is needed here since list_concat and operator+ are not member functions
+            but rather free-standing friend functions that needs to be able to concat two lists of the same generic 
+            type that is not limited by the template type T */
+
             template<typename U>
             friend list<U> list_concat(const list<U>& lhs, const list<U>& rhs);
 
