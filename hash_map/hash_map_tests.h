@@ -8,22 +8,20 @@
 void run_hash_map_tests() {
     rb::hash_map<int> hashmap;
 
+    // Test insert and get
     hashmap.insert("apple", 1);
     assert(hashmap.get("apple") == 1);
     hashmap.insert("apple", 2);
     assert(hashmap.get("apple") == 2);
 
-    hashmap.insert("", 10);
-    assert(hashmap.search("") == true);
-    assert(hashmap.get("") == 10);
-
+    // Test basic remove
     assert(hashmap.remove("nonexistent") == false);
-
     hashmap.insert("banana", 3);
     assert(hashmap.search("banana") == true);
     assert(hashmap.remove("banana") == true);
     assert(hashmap.search("banana") == false);
 
+    // Test out of range for get
     try {
         hashmap.get("banana");
         assert(false); // Should not reach here
@@ -31,36 +29,36 @@ void run_hash_map_tests() {
         assert(true); // Expected exception
     }
 
+    // Test insert with many values
     for (int i = 0; i < 100; ++i) {
         hashmap.insert("key" + std::to_string(i), i);
     }
 
-    hashmap.print_table(); // Print the state of the table after insertions
-
+    // Test search and get for many values
     for (int i = 0; i < 100; ++i) {
         assert(hashmap.search("key" + std::to_string(i)) == true);
         assert(hashmap.get("key" + std::to_string(i)) == i);
     }
 
+    // Test search for nonexistent key
     assert(hashmap.search("nonexistent") == false);
 
+    // More insert/get tests
     std::string key1 = "Aa";
     std::string key2 = "BB";
     hashmap.insert(key1, 100);
     hashmap.insert(key2, 200);
     assert(hashmap.get(key1) == 100);
     assert(hashmap.get(key2) == 200);
-
     hashmap.insert("update", 123);
     assert(hashmap.get("update") == 123);
     hashmap.insert("update", 456);
     assert(hashmap.get("update") == 456);
 
+    // Test insert, search, get and remove for many values
     for (int i = 100; i < 200; ++i) {
         hashmap.insert("key" + std::to_string(i), i);
     }
-
-    hashmap.print_table(); // Print the state of the table after more insertions
 
     for (int i = 100; i < 200; ++i) {
         assert(hashmap.search("key" + std::to_string(i)) == true);
@@ -69,13 +67,9 @@ void run_hash_map_tests() {
     for (int i = 100; i < 200; ++i) {
         bool removed = hashmap.remove("key" + std::to_string(i));
         bool found = hashmap.search("key" + std::to_string(i));
-        std::cout << "Removing key" << i << ": " << (removed ? "success" : "fail") << std::endl;
-        std::cout << "Searching key" << i << ": " << (found ? "found" : "not found") << std::endl;
         assert(removed == true);
         assert(found == false);
     }
-
-    hashmap.print_table(); // Print the state of the table after removals
 
     // Test operator[]
     hashmap["apple"] = 5;
@@ -86,5 +80,15 @@ void run_hash_map_tests() {
 
     assert(hashmap["nonexistent"] == 0); // Default value
 
-    std::cout << "All tests passed!" << std::endl;
+    // Test that inserting an empty string key throws an exception
+    try {
+        hashmap.insert("", 10);
+        assert(false); // If we reach this line, the test has failed
+    } catch (const std::runtime_error& e) {
+        assert(std::string(e.what()) == "Key cannot be empty string!"); // Check that the correct exception message is thrown
+    } catch (...) {
+        assert(false); // If we catch any other exception, the test has failed
+    }
+
+    std::cout << "All hash_map tests passed!" << std::endl;
 }

@@ -2,10 +2,7 @@
 #include "hash_map.h"
 
 #include <string>
-
-// TODO: What to do if the key "" is used?
-// TODO: Update and add comments to new find slot functions
-// TODO: More edge case tests
+#include <stdexcept>
 
 namespace rb {
     template <typename V>
@@ -19,7 +16,7 @@ namespace rb {
         growth_factor = default_growth_factor; // Factor that decides the table growth during a resize
     }
 
-    // Gets the index in the underlying vector of the given key
+    // Finds an empty slot where an entry with a given key can be placed, returns the index of the empty slot
     template <typename V>
     size_t hash_map<V>::find_empty_slot(const std::string& key) const {
         size_t hash = fnv1a_hash(key); // Get hash value based on key
@@ -33,16 +30,18 @@ namespace rb {
         return index;
     }
 
+    // Attempts to find and occupied slot that has the same key as the given key
     template <typename V>
     size_t hash_map<V>::find_key_slot(const std::string& key) const {
         size_t hash = fnv1a_hash(key); // Get hash value based on key
         size_t index = hash % capacity; // Take modulo of capacity to make sure index is within bounds of table capacity
-        size_t original_index = index;
+        size_t original_index = index; // Store original index to be able to detect infinite loop
 
         // Try new indicies as long as the found indicies does not contain the specified key
         while (table[index].first != key) {
-            index = (index + 1) % capacity; // Compute another index that hopefully doesn't collide
-            if (index == original_index) { // Full cycle, stop to prevent infinite loop
+            index = (index + 1) % capacity; // Compute next index
+            // Full cycle, stop to prevent infinite loop
+            if (index == original_index) { 
                 break;
             }
         }
@@ -50,11 +49,14 @@ namespace rb {
         return index;
     }
 
+    // Finds either an empty slot or the entry with the same key as the given key
+    // In the case of a replacement, the occupied slot will always be found before the empty slot
     template <typename V>
     size_t hash_map<V>::find_slot(const std::string& key) const {
         size_t hash = fnv1a_hash(key); // Get hash value based on key
         size_t index = hash % capacity; // Take modulo of capacity to make sure index is within bounds of table capacity
 
+        // Until either an empty slot or an occupied slot with the same key as the given key
         while (table[index].first != "" && table[index].first != key) {
             index = (index + 1) % capacity; // Compute another index that hopefully doesn't collide
         }
@@ -97,6 +99,10 @@ namespace rb {
     // Insert a new key value pair into the hash map
     template <typename V>
     void hash_map<V>::insert(const std::string& key, const V& value) {
+        if (key == "") {
+            throw std::runtime_error("Key cannot be empty string!");
+        }
+
         // If the load factor has been reached, perform a resize of the hash map
         if (static_cast<double>(size) / static_cast<double>(capacity) >= load_factor) {
             resize();
@@ -112,16 +118,12 @@ namespace rb {
         /* Even if it is a replacement or an insertion of a new element create a new entry 
         in the table and assign it to the table at the current index */
         table[index] = std::make_pair(key, value);
-
-        std::cout << "Inserted key: " << key << " at index: " << index << std::endl; // Debugging insertion
     }
 
     // Remove the key value pair with the given key from the hash map
     template <typename V>
     bool hash_map<V>::remove(const std::string& key) {
         size_t index = find_key_slot(key); // Find the table index of the given key
-
-        std::cout << "Attempting to remove key: " << key << " at index: " << index << std::endl; // Debugging removal
 
         // Ensure the found index has the given key
         if (table[index].first == key) {
@@ -134,7 +136,7 @@ namespace rb {
         return false; // Otherwise return false, indicating an unsuccessful deletion
     }
 
-    // Checks if a key  value pair with a given key exists in the hash map
+    // Checks if a key value pair with a given key exists in the hash map
     template <typename V>
     bool hash_map<V>::search(const std::string& key) const {
         size_t index = find_key_slot(key); // Find the table index of the given key
@@ -189,8 +191,9 @@ namespace rb {
         return get(key); // Value can only be viewed, so a constant reference of the value is returned
     }
 
+    // Prints the current table state
     template <typename V>
-    void hash_map<V>::print_table() const {
+    void hash_map<V>::print() const {
         std::cout << "Hash table state:" << std::endl;
         for (size_t i = 0; i < capacity; ++i) {
             if (table[i].first != "") {

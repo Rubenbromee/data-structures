@@ -31,7 +31,7 @@ namespace rb {
             V& operator[](const std::string& key);
             const V& operator[](const std::string& key) const;
 
-            void print_table() const; // Added function to print the table state
+            void print() const; // Added function to print the table state
     };
 }
 
