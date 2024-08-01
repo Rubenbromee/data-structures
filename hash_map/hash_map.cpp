@@ -1,3 +1,6 @@
+#ifndef HASH_MAP_CPP
+#define HASH_MAP_CPP
+
 #include "hash_map_util.h"
 #include "hash_map.h"
 
@@ -129,7 +132,7 @@ namespace rb {
         if (table[index].first == key) {
             // Overwrite the key with an empty key, essentially making it an empty slot
             // The insert operation will consider this an empty slot since the key is an empty key
-            table[index].first = ""; 
+            table[index].first = "";
             size--; // Decrease the size since an element has been removed from the table
             return true; // Return true, indicating a successful deletion
         }
@@ -202,3 +205,5 @@ namespace rb {
         }
     }
 }
+
+#endif

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <sstream>
 
+// TODO: Add iterator test
+
 void test_append() {
     rb::dl_list<int> list;
     list.append(1);

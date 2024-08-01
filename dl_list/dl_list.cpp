@@ -1,3 +1,6 @@
+#ifndef DL_LIST_CPP
+#define DL_LIST_CPP
+
 #include "dl_list.h"
 #include "../node/dl_node.h"
 
@@ -18,7 +21,8 @@ namespace rb {
             delete current;
             current = next_node;
         }
-        
+        _head = nullptr;
+        _tail = nullptr;
     }
 
     // Add a node to the back of the list
@@ -165,4 +169,11 @@ namespace rb {
         }
         throw std::runtime_error("Attempted to fetch tail of empty list!");
     }
+
+    template <typename T>
+    bool dl_list<T>::empty() const {
+        return _head == nullptr;
+    }
 }
+
+#endif
