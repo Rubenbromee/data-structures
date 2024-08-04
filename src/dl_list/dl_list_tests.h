@@ -1,11 +1,8 @@
 #include "dl_list.h"
-#include "dl_list.cpp"
 
 #include <cassert>
 #include <iostream>
 #include <sstream>
-
-// TODO: Add iterator test
 
 void test_append() {
     rb::dl_list<int> list;

@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <cmath>
 
-std::size_t next_power_of_two(std::size_t n) {
+inline std::size_t next_power_of_two(std::size_t n) {
     // To avoid negative numbers in bitshifting
     if (n == 0) {
         return 1;

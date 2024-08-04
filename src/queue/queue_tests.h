@@ -1,6 +1,5 @@
 #include "queue.h"
 #include "../node/node.h"
-#include "queue.cpp"
 #include <iostream>
 #include <cassert>
 #include <stdexcept>

@@ -1,6 +1,4 @@
-#include "hash_map_util.h"
 #include "hash_map.h"
-#include "hash_map.cpp"
 
 #include <iostream>
 #include <cassert>
@@ -89,6 +87,19 @@ void run_hash_map_tests() {
     } catch (...) {
         assert(false); // If we catch any other exception, the test has failed
     }
+
+    // Copy constructor test
+    std::cout << "hashmap:" << std::endl;
+    hashmap.print();
+    rb::hash_map<int> hashmap_copy = hashmap;
+    std::cout << "hashmap_copy:" << std::endl;
+    hashmap_copy.print();
+    assert(hashmap_copy["key40"] == 40);
+    assert(hashmap_copy["key8"] == 8);
+    assert(hashmap_copy["key58"] == 58);
+    assert(hashmap_copy["key21"] == 21);
+    assert(hashmap_copy["key95"] == 95);
+    assert(hashmap_copy["newkey"] == 10);
 
     std::cout << "All hash_map tests passed!" << std::endl;
 }

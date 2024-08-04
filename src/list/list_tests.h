@@ -2,7 +2,6 @@
 #define LIST_TEST_H
 
 #include "list.h"
-#include "list.cpp" // When using templates, implementation file must also be included
 #include "list_util.h"
 #include <iostream>
 #include <cassert>
@@ -52,6 +51,15 @@ void test_constructors() {
     assert(list_initialized_with_initializer_list[2] == 30);
     assert(list_initialized_with_initializer_list[3] == 40);
     assert(list_initialized_with_initializer_list[4] == 50);
+
+    rb::list<int> list_initialized_with_initializer_list_copy = list_initialized_with_initializer_list;
+
+    assert(list_initialized_with_initializer_list_copy.size() == 5);
+    assert(list_initialized_with_initializer_list_copy[0] == 10);
+    assert(list_initialized_with_initializer_list_copy[1] == 20);
+    assert(list_initialized_with_initializer_list_copy[2] == 30);
+    assert(list_initialized_with_initializer_list_copy[3] == 40);
+    assert(list_initialized_with_initializer_list_copy[4] == 50);
 
     std::cout << "test_constructors passed!" << std::endl;
 }
