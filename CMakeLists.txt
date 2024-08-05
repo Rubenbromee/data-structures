@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set the project name and version
-project(YourProjectName VERSION 1.0)
+project(data_structures VERSION 1.0)
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -14,14 +14,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 file(GLOB_RECURSE SOURCES "src/*")
 
 # Add the executable
-add_executable(YourExecutableName ${SOURCES})
+add_executable(data_structures ${SOURCES})
 
 # Custom target for building and running
 add_custom_target(run
-    COMMAND YourExecutableName
-    DEPENDS YourExecutableName
+    COMMAND data_structures
+    DEPENDS data_structures
     WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 # Include directories
-target_include_directories(YourExecutableName PRIVATE src)
+target_include_directories(data_structures PRIVATE src)

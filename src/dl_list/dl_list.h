@@ -5,8 +5,6 @@
 
 #include <iostream>
 
-// TODO: Copy assignment operator
-
 namespace rb {
     // A doubly-linked list
     template <typename T>
@@ -182,7 +180,23 @@ namespace rb {
             }
 
             bool empty() const {
-                return _head == nullptr;
+                return this->_head == nullptr;
+            }
+
+            // Copy assignment operator
+            dl_list<T>& operator=(const dl_list& rhs) {
+                // If this and rhs are not the same variable
+                if (this != &rhs) {
+                    this->~dl_list(); // Clear out current state of this
+                    if (!rhs.empty()) {
+                        dl_node<T>* current = rhs._head;
+                        while (current) {
+                            append(current->data);
+                            current = current->next;
+                        }
+                    }
+                }
+                return *this;
             }
 
             // Iterator to be able to do range based for loops for the doubly linked list

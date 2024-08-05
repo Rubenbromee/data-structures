@@ -7,13 +7,11 @@
 #include <vector>
 #include <string>
 
-// TODO: Copy constructor, copy assignment operator
-
-// Hash function hashes a string either way, so key has to be a string
 namespace rb {
     template <typename V>
     struct hash_map {
         private:
+            // Hash function hashes a string either way, so key has to be a string
             std::vector<std::pair<std::string, V>> table;
             size_t size;
             size_t capacity;
@@ -107,6 +105,10 @@ namespace rb {
                 growth_factor = default_growth_factor; // Factor that decides the table growth during a resize
             }
 
+            ~hash_map() = default;
+            
+            // Copy constructor is implicit since all components of the hash map are from the standard library with existing copy-assignments
+
             // Insert a new key value pair into the hash map
             void insert(const std::string& key, const V& value) {
                 if (key == "") {
@@ -127,7 +129,7 @@ namespace rb {
 
                 /* Even if it is a replacement or an insertion of a new element create a new entry 
                 in the table and assign it to the table at the current index */
-                table[index] = std::make_pair(key, value);
+                table[index] = std::make_pair(key, std::move(value));
             }
 
             // Remove the key value pair with the given key from the hash map
@@ -169,6 +171,7 @@ namespace rb {
                 throw std::out_of_range("Key not found"); // Throw an out of range exception if key is not found
             }
 
+            // Get for constant objects
             const V& get(const std::string& key) const {
                 size_t index = find_key_slot(key);
                 if (table[index].first == key) {
@@ -192,6 +195,19 @@ namespace rb {
             // Shorthand for get operator on constant object
             const V& operator[](const std::string& key) const {
                 return get(key); // Value can only be viewed, so a constant reference of the value is returned
+            }
+
+            // Copy-assignment operator
+            hash_map<V>& operator=(const hash_map<V>& rhs) {
+                // If this and rhs are not the same variable
+                if (this != &rhs) {
+                    table = rhs.table;
+                    capacity = rhs.capacity;
+                    size = rhs.size;
+                    load_factor = rhs.load_factor;
+                    growth_factor = rhs.growth_factor;
+                }
+                return *this;
             }
             
             // Prints the current table state

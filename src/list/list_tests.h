@@ -38,7 +38,7 @@ void test_next_power_of_two() {
     std::cout << "test_next_power_of_two passed!" << std::endl;
 }
 
-void test_constructors() {
+void test_list_constructors() {
     rb::list<int> empty_list;
     rb::list<int> list_with_set_capacity = rb::list<int>(10);
     rb::list<int> list_initialized_with_initializer_list = rb::list<int>({10, 20, 30, 40, 50});
@@ -153,7 +153,7 @@ void test_operator_plus() {
 }
 
 void run_list_test() {
-    test_constructors();
+    test_list_constructors();
     test_push_back();
     test_pop_back();
     test_resize();

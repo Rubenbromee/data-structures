@@ -7,8 +7,6 @@
 #include <string>
 #include <iostream>
 
-// TODO: Copy constructor, copy assignment operator
-
 namespace rb {
     // Many-to-many directed graph data structure with the nodes being strings
     struct graph {
@@ -16,6 +14,16 @@ namespace rb {
             rb::hash_map<rb::dl_list<std::string>> adjacency_list;
             rb::dl_list<std::string> insert_order;
         public:
+            graph() = default;
+
+            // Copy constructor
+            graph(const graph& rhs) {
+                adjacency_list = rhs.adjacency_list;
+                insert_order = rhs.insert_order;
+            }
+
+            ~graph() = default;
+
             // Add an edge from node a to node b
             void add_edge(const std::string a, const std::string b) {
                 // If a is a new node, add it to the insert order
@@ -30,7 +38,6 @@ namespace rb {
             void delete_edge(const std::string a, const std::string b) {
                 // Attempting to delete an outgoing edge of a nonexistent node should do noting
                 if (!adjacency_list.search(a)) {
-                    std::cout << "Node " << a << " has no outgoing edges!";
                     return;
                 }
 
@@ -58,6 +65,18 @@ namespace rb {
                     
                     std::cout << std::endl;
                 }
+            }
+
+            // Copy-assignment operator
+            graph& operator=(const graph& rhs) {
+                // If this and rhs are not the same variable
+                if (this != &rhs) {
+                    this->~graph(); // Clear out the current graph
+                    // Copy values from rhs
+                    adjacency_list = rhs.adjacency_list;
+                    insert_order = rhs.insert_order;
+                }
+                return *this;
             }
     };
 }

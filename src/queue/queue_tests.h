@@ -4,6 +4,20 @@
 #include <cassert>
 #include <stdexcept>
 
+void test_queue_constructors() {
+    rb::queue<int> q;
+
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+
+    rb::queue<int> q_copy = q;
+
+    assert(q_copy.pop() == 10 && "Pop should return 10");
+    assert(q_copy.pop() == 20 && "Pop should return 20");
+    assert(q_copy.pop() == 30 && "Pop should return 30");
+}
+
 void test_enqueue_dequeue() {
     rb::queue<int> q;
 

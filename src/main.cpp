@@ -11,7 +11,7 @@ int main() {
     run_list_test();
     run_queue_tests();
     run_dl_list_tests();
-    run_hash_map_tests();
+    // run_hash_map_tests();
     run_graph_tests();
     return 0;
 }

@@ -4,6 +4,21 @@
 #include <iostream>
 #include <sstream>
 
+void test_dl_list_constructors() {
+    rb::dl_list<int> list;
+    list.append(1);
+    list.append(2);
+    list.append(3);
+
+    assert(list.head() == 1);
+    assert(list.tail() == 3);
+
+    rb::dl_list<int> list_copy = list;
+
+    assert(list_copy.head() == 1);
+    assert(list_copy.tail() == 3);
+}
+
 void test_append() {
     rb::dl_list<int> list;
     list.append(1);
@@ -118,6 +133,7 @@ void test_head_tail() {
 }
 
 void run_dl_list_tests() {
+    test_dl_list_constructors();
     test_append();
     test_prepend();
     test_insert();

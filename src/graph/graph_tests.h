@@ -3,6 +3,24 @@
 #include <iostream>
 #include <cassert>
 
+void test_graph_constructors() {
+    rb::graph g;
+
+    g.add_edge("A", "B");
+    g.add_edge("A", "C");
+    g.add_edge("B", "D");
+    g.add_edge("C", "D");
+    g.add_edge("C", "E");
+    g.add_edge("E", "F");
+
+    rb::graph g_copy = g;
+
+    std::cout << "g:" << std::endl;
+    g.print();
+    std::cout << "g_copy:" << std::endl;
+    g_copy.print();
+}
+
 void test_add_edge() {
     rb::graph g;
     g.add_edge("A", "B");
@@ -33,6 +51,7 @@ void test_delete_edge() {
 }
 
 void run_graph_tests() {
+    test_graph_constructors();
     test_add_edge();
     test_delete_edge();
     std::cout << "All graph tests passed!" << std::endl;

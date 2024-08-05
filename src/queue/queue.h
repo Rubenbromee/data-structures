@@ -3,8 +3,6 @@
 
 #include "../node/node.h"
 
-// TODO: Copy assignment operator
-
 namespace rb {
     template<typename T>
     struct queue {
@@ -90,7 +88,7 @@ namespace rb {
             }
 
             // Checks if queue is empty
-            bool empty() {
+            bool empty() const {
                 return _front == nullptr;
             }
 
@@ -101,6 +99,22 @@ namespace rb {
                     return T();
                 }
                 return _front->data;
+            }
+
+            // Copy-assignment operator
+            queue<T>& operator=(const queue<T>& rhs) {
+                // If this and rhs are not the same variable
+                if (this != &rhs) {
+                    this->~queue(); // Clear out current state of this
+                    if (!rhs.empty()) {
+                        node<T>* current = rhs._front;
+                        while (current) {
+                            enqueue(current->data);
+                            current = current->next;
+                        }
+                    }
+                }
+                return *this;
             }
     };
 }

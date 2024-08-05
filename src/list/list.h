@@ -146,8 +146,10 @@ namespace rb {
 
             // Copy assignment operator
             list<T>& operator=(const list& rhs) {
+                // If this and rhs are not the same variable
                 if (this != &rhs) {
-                    delete[] _data;  // Clean up existing resources
+                    this->~list(); // Clear out current state of this
+                    // Copy values from rhs
                     _size = rhs._size;
                     _capacity = rhs._capacity;
                     _data = new T[_capacity];

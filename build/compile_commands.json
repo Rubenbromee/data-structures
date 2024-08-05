@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/ruben/repos/data-structures/build",
+  "command": "/usr/bin/c++  -I/home/ruben/repos/data-structures/src -g -std=gnu++11 -o CMakeFiles/data_structures.dir/src/main.cpp.o -c /home/ruben/repos/data-structures/src/main.cpp",
+  "file": "/home/ruben/repos/data-structures/src/main.cpp",
+  "output": "CMakeFiles/data_structures.dir/src/main.cpp.o"
+}
+]
