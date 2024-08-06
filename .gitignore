@@ -1,4 +1,7 @@
 .vscode
+build/.cmake
+build/bin/
+build/bin/data_structures
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
